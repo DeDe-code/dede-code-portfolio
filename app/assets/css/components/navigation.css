@@ -1,0 +1,58 @@
+@layer components {
+  /* Grid container for header layout */
+  .header-grid {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: "content picture nav";
+    align-items: end;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Grid areas */
+  .header-content {
+    grid-area: content;
+    justify-self: start;
+  }
+
+  .header-picture {
+    grid-area: picture;
+    justify-self: end;
+  }
+
+  .side-nav {
+    grid-area: nav;
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 300px;
+    min-width: 250px;
+    max-width: 350px;
+    padding: 7rem 1rem 0 1rem;
+    z-index: 1000;
+  }
+
+  /* Responsive adjustments - only 2 breakpoints needed! */
+  @media (max-width: 768px) {
+    .header-grid {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "content picture";
+    }
+
+    .side-nav {
+      position: fixed !important; /* Use fixed instead of absolute for mobile */
+      top: 0;
+      right: 0;
+      width: 350px;
+      min-width: 265px;
+      height: 100vh;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .side-nav {
+      width: clamp(280px, 25vw, 350px); /* Responsive width that scales */
+    }
+  }
+}

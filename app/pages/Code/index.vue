@@ -1,0 +1,8 @@
+<script setup lang="ts"></script>
+<template>
+  <div>
+    <h1>Welcome from the Code Page</h1>
+  </div>
+</template>
+
+<style scoped></style>
