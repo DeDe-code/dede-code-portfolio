@@ -1,8 +1,8 @@
-<script setup></script>
+<script setup lang="ts"></script>
 <template>
   <div>
-    <h1>Welcome from dede-code portfolio home page</h1>
+    <h1>Welcome from the home</h1>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

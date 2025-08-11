@@ -2,4 +2,8 @@
 @import "@nuxt/ui";
 
 @import "./base/global.css";
+@import "./themes/variables.css";
+@import "./components/themed-components.css";
+@import "./components/page-transitions.css";
+@import "./components/header.css";
 @import "./components/navigation.css";

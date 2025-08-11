@@ -2,7 +2,23 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
- 
+
+  // Configure page transitions
+  app: {
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
+    layoutTransition: {
+      name: "layout", 
+      mode: "out-in",
+    },
+  },
+
+  // Ensure transitions are enabled
+  experimental: {
+    viewTransition: true,
+  },
 
   modules: [
     "@nuxt/content",
@@ -14,15 +30,14 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
   ],
 
-   css: [
+  css: [
     "~/assets/css/main.css", // The ~ points to app/ folder
   ],
-  
+
   fonts: {
     families: [
       // Google Fonts
-      { name: 'JetBrains Mono', provider: 'google' },
-    ]
-  }
-  ,
+      { name: "JetBrains Mono", provider: "google" },
+    ],
+  },
 });

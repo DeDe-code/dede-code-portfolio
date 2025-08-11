@@ -1,5 +1,6 @@
 @layer base {
   body {
+    background-color: #1a1a1a;
     font-family: "JetBrains Mono", ui-monospace, monospace;
   }
 

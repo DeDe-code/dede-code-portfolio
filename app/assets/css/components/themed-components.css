@@ -1,0 +1,73 @@
+@layer utilities {
+  /* Border utilities using theme variables */
+  .border-theme-primary {
+    border-color: var(--theme-border-primary);
+  }
+
+  .border-b-theme-primary {
+    border-bottom-color: var(--theme-border-primary);
+  }
+
+  .border-l-theme-primary {
+    border-left-color: var(--theme-border-primary);
+  }
+
+  /* Text utilities */
+  .text-theme-accent {
+    color: var(--theme-text-accent);
+  }
+
+  .text-theme-primary {
+    color: var(--theme-border-primary);
+  }
+
+  /* Background utilities */
+  .bg-theme-accent {
+    background-color: var(--theme-bg-accent);
+  }
+
+  /* Hover states */
+  .hover-theme-accent:hover {
+    color: var(--theme-text-accent);
+  }
+}
+
+@layer components {
+  /* Complex component classes */
+  .themed-header {
+    /* border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--theme-border-primary); */
+  }
+
+  .themed-navigation {
+    /* border-left-width: 2px;
+    border-left-style: solid;
+    border-left-color: var(--theme-border-primary); */
+  }
+
+  .themed-button {
+    background-color: var(--theme-bg-accent);
+    color: #ffffff;
+  }
+
+  .themed-button:hover {
+    opacity: 0.8;
+  }
+
+  /* Active navigation link styles */
+  .themed-navigation .router-link-active,
+  .themed-navigation .router-link-exact-active,
+  .themed-navigation [aria-current="page"],
+  .themed-navigation a[data-active="true"] {
+    color: var(--theme-border-primary) !important;
+    transition: all var(--theme-transition-duration)
+      var(--theme-transition-timing);
+  }
+
+  /* Additional specificity for Nuxt UI components */
+  .side-nav [data-state="active"],
+  .side-nav .router-link-active {
+    color: var(--theme-border-primary) !important;
+  }
+}

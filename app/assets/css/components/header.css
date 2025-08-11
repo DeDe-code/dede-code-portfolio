@@ -1,0 +1,20 @@
+header {
+  position: relative;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--theme-border-primary);
+  transition: height var(--theme-transition-duration)
+    var(--theme-transition-timing, ease-out);
+  z-index: 1;
+}
+
+header:has(.side-nav .nav-item[data-active])::after {
+  width: 100% !important;
+}

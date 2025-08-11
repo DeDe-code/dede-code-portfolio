@@ -1,0 +1,50 @@
+/* Define all possible theme colors */
+:root {
+  /* Default theme */
+  --theme-border-primary: #ffffff;
+  --theme-border-secondary: #6b7280;
+  --theme-text-accent: #ffffff;
+  --theme-bg-accent: #1f2937;
+
+  /* Transition timing - applies globally */
+  --theme-transition-duration: 300ms;
+  --theme-transition-timing: ease-in-out;
+}
+
+/* Apply transitions to elements that use theme variables */
+* {
+  transition:
+    border-color var(--theme-transition-duration) var(--theme-transition-timing),
+    background-color var(--theme-transition-duration)
+      var(--theme-transition-timing),
+    color var(--theme-transition-duration) var(--theme-transition-timing);
+}
+
+/* Route-specific theme classes */
+.theme-home {
+  --theme-border-primary: #ef4444; /* red-500 for home */
+}
+
+.theme-about {
+  --theme-border-primary: #4ecdc4 /* amber-500 */
+    /* --theme-text-accent: #f59e0b;
+  --theme-bg-accent: #d97706; */;
+}
+
+.theme-code {
+  --theme-border-primary: #ff6b6b; /* green-500 */
+  /* --theme-text-accent: #10b981;
+  --theme-bg-accent: #059669; */
+}
+
+.theme-acting {
+  --theme-border-primary: #96ceb4; /* yellow-400 */
+  /* --theme-text-accent: #fbbf24;
+  --theme-bg-accent: #f59e0b; */
+}
+
+.theme-contact {
+  --theme-border-primary: #ffeaa7; /* blue-500 */
+  /* --theme-text-accent: #3b82f6;
+  --theme-bg-accent: #2563eb; */
+}

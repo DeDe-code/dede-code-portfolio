@@ -4,19 +4,19 @@ import type { NavigationMenuItem } from "@nuxt/ui";
 const items = ref<NavigationMenuItem[]>([
   {
     label: "about",
-    to: "/",
+    to: "/about",
   },
   {
     label: "code",
-    to: "/Code",
+    to: "/code",
   },
   {
     label: "acting",
-    to: "/Acting",
+    to: "/acting",
   },
   {
     label: "contact",
-    to: "/Contact",
+    to: "/contact",
   },
 ]);
 </script>
@@ -25,9 +25,10 @@ const items = ref<NavigationMenuItem[]>([
   <UNavigationMenu
     orientation="vertical"
     :items="items"
-    class="data-[orientation=vertical]:w-38 border-l-2 border-white hover:none side-nav"
+    class="themed-navigation data-[orientation=vertical]:w-38 hover:none side-nav"
     :ui="{
-      link: 'px-0 text-white before:!bg-transparent hover:!bg-transparent hover:text-green-500',
+      link: 'nav-item px-0 text-white before:!bg-transparent hover:!bg-transparent hover:text-[#f4acb7] relative',
+      linkActive: '!text-theme-primary',
     }"
   />
 </template>
