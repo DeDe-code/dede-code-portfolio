@@ -46,6 +46,10 @@
     border-left-color: var(--theme-border-primary); */
   }
 
+  .themed-link {
+    color: var(--theme-border-primary) !important;
+  }
+
   .themed-button {
     background-color: var(--theme-bg-accent);
     color: #ffffff;

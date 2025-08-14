@@ -3,7 +3,7 @@
   .header-grid {
     display: grid;
     grid-template-columns: 1fr auto auto;
-    grid-template-areas: "content picture nav";
+    grid-template-areas: "content icon picture nav";
     align-items: end;
     width: 100%;
     position: relative;
@@ -14,7 +14,10 @@
     grid-area: content;
     justify-self: start;
   }
-
+  .header-menu-icon {
+    grid-area: icon;
+    justify-self: end;
+  }
   .header-picture {
     grid-area: picture;
     justify-self: end;
@@ -37,7 +40,7 @@
   @media (max-width: 768px) {
     .header-grid {
       grid-template-columns: 1fr auto;
-      grid-template-areas: "content picture";
+      grid-template-areas: "content icon";
     }
 
     .side-nav {
