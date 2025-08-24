@@ -1,145 +1,66 @@
 <script setup lang="ts">
+// Composables
 const {
   type: notificationType,
   isVisible,
-  notificationEl,
-  notificationText,
   showNotification,
   showSuccessText,
-  animatedText,
+  message: notificationMessage,
 } = useNotification();
-const appConfig = useAppConfig();
 
+const { validateForm, getTrimmedFormData } = useFormValidation();
+const { isSubmitting, submitForm } = useContactSubmission();
+
+// Form state
 const email = ref("");
 const message = ref("");
-const isSubmitting = ref(false);
-const submitStatus = ref<"idle" | "success" | "error">("idle");
-const handleNotification = (
-  message: string,
-  type: "error" | "success" = "error"
-) => {
-  showNotification(message, type);
-};
-const notificationClasses = computed(() => {
-  const variant = appConfig.notification.variants[notificationType.value];
 
-  return {
-    base: appConfig.notification.base,
-    overlay: appConfig.notification.overlay,
-    container:
-      `${appConfig.notification.container} ${variant?.container || ""}`.trim(),
-    icon: variant?.icon || "",
-  };
-});
+// Form submission handler
+const handleSubmit = async () => {
+  const formData = { email: email.value, message: message.value };
 
-// Form submission function
-const submitForm = async () => {
-  // Trim whitespace
-  const emailTrimmed = email.value.trim();
-  const messageTrimmed = message.value.trim();
-
-  // Required field validation
-  if (!emailTrimmed || !messageTrimmed) {
-    handleNotification("Please fill in all fields!", "error");
+  // Validate form
+  const validation = validateForm(formData);
+  if (!validation.isValid) {
+    showNotification(validation.error!, "error");
     return;
   }
 
-  // Email length validation
-  if (emailTrimmed.length > 254) {
-    handleNotification("Email address is too long", "error");
-    return;
-  }
+  // Get trimmed data
+  const trimmedData = getTrimmedFormData(formData);
 
-  // Improved email format validation
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailRegex.test(emailTrimmed)) {
-    handleNotification("Please enter a valid email address", "error");
-    return;
-  }
+  // Submit form
+  await submitForm(
+    trimmedData,
+    // Success callback
+    () => {
+      // Reset form
+      email.value = "";
+      message.value = "";
 
-  // Message length validation (prevent spam)
-  if (messageTrimmed.length > 5000) {
-    handleNotification("Message is too long (max 5000 characters)", "error");
-    return;
-  }
-
-  if (messageTrimmed.length < 10) {
-    handleNotification(
-      "Please enter a more detailed message (min 10 characters)",
-      "error"
-    );
-    return;
-  }
-
-  // Continue with submission using trimmed values
-  isSubmitting.value = true;
-  submitStatus.value = "idle";
-
-  try {
-    // Call your API endpoint
-    await $fetch("/api/contact", {
-      method: "POST",
-      body: {
-        email: emailTrimmed,
-        message: messageTrimmed,
-      },
-    });
-
-    // Success handling
-    submitStatus.value = "success";
-
-    // Reset form
-    email.value = "";
-    message.value = "";
-
-    // Success feedback
-    handleNotification(
-      "Message sent successfully! I'll get back to you soon.",
-      "success"
-    );
-  } catch (error) {
-    console.error("Submit error:", error);
-    submitStatus.value = "error";
-    handleNotification(
-      "Failed to send message. Please try again later.",
-      "error"
-    );
-  } finally {
-    isSubmitting.value = false;
-  }
+      // Show success notification
+      showNotification(
+        "Message sent successfully! I'll get back to you soon.",
+        "success"
+      );
+    },
+    // Error callback
+    (errorMessage: string) => {
+      showNotification(errorMessage, "error");
+    }
+  );
 };
 </script>
 <template>
   <div class="flex flex-col space-y-6 w-full mt-8">
-    <div
-      v-show="isVisible"
-      ref="notificationEl"
-      :class="notificationClasses.base"
-    >
-      <div ref="notificationText" :class="notificationClasses.container">
-        <!-- Success notification: Show loading first, then text -->
-        <template v-if="notificationType === 'success'">
-          <Icon
-            v-if="!showSuccessText"
-            name="svg-spinners:ring-resize"
-            class="mr-2"
-          />
-          <span v-if="showSuccessText">{{ animatedText }}</span>
-        </template>
+    <!-- Use the extracted NotificationDisplay component -->
+    <UiNotificationDisplay
+      :type="notificationType"
+      :is-visible="isVisible"
+      :message="notificationMessage"
+      :show-success-text="showSuccessText"
+    />
 
-        <!-- Error notification: Show icon with text immediately -->
-        <template v-else-if="notificationType === 'error'">
-          <Icon name="material-symbols:error" class="mr-2" />
-          <span>{{ animatedText }}</span>
-        </template>
-
-        <!-- Loading notification: Show loading icon with text -->
-        <template v-else-if="notificationType === 'loading'">
-          <Icon name="svg-spinners:ring-resize" class="mr-2" />
-          <span>{{ animatedText }}</span>
-        </template>
-      </div>
-    </div>
     <UFormField label="Email">
       <UInput v-model="email" placeholder="Enter your email" size="xl" />
     </UFormField>
@@ -156,9 +77,10 @@ const submitForm = async () => {
       size="md"
       variant="solid"
       class="w-38"
-      @click="submitForm"
+      :disabled="isSubmitting"
+      @click="handleSubmit"
     >
-      Send
+      {{ isSubmitting ? "Sending..." : "Send" }}
     </UButton>
   </div>
 </template>
