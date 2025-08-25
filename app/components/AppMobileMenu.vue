@@ -2,10 +2,10 @@
 import type { NavigationMenuItem } from "@nuxt/ui";
 import { ref } from "vue";
 
-const emit = defineEmits(["closeMobileMenu"]);
+const emit = defineEmits(["close-mobile-menu"]);
 
 const handleLinkClick = () => {
-  emit("closeMobileMenu");
+  emit("close-mobile-menu");
 };
 
 const items = ref<NavigationMenuItem[]>([

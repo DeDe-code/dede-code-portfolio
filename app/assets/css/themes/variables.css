@@ -1,9 +1,32 @@
-/* Define all possible theme colors */
+/* Define all color variables */
 :root {
+  /* Core System Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-dark-background: #1a1a1a;
+  --color-background-light: #f5f5f5;
+  --color-text-muted: #666666;
+
+  /* Interactive Colors */
+  --color-focus: #f1c40f;
+  --color-focus-hover: #e0b007;
+  --color-hover-accent: #f4acb7;
+
+  /* Notification Colors */
+  --color-success-bg: #059669;
+  --color-success-border: #10b981;
+  --color-error-bg: #dc2626;
+  --color-error-border: #ef4444;
+  --color-teal: #0d9488;
+
+  /* Email Template Colors */
+  --color-email-bg: #f5f5f5;
+  --color-email-text: #666666;
+
   /* Default theme */
-  --theme-border-primary: #ffffff;
+  --theme-border-primary: var(--color-white);
   --theme-border-secondary: #6b7280;
-  --theme-text-accent: #ffffff;
+  --theme-text-accent: var(--color-white);
   --theme-bg-accent: #1f2937;
 
   /* Transition timing - applies globally */
@@ -22,29 +45,21 @@
 
 /* Route-specific theme classes */
 .theme-home {
-  --theme-border-primary: #ef4444; /* red-500 for home */
+  --theme-border-primary: #ef4444;
 }
 
 .theme-about {
-  --theme-border-primary: #4ecdc4 /* amber-500 */
-    /* --theme-text-accent: #f59e0b;
-  --theme-bg-accent: #d97706; */;
+  --theme-border-primary: #4ecdc4;
 }
 
 .theme-code {
-  --theme-border-primary: #ff6b6b; /* green-500 */
-  /* --theme-text-accent: #10b981;
-  --theme-bg-accent: #059669; */
+  --theme-border-primary: #ff6b6b;
 }
 
 .theme-acting {
-  --theme-border-primary: #96ceb4; /* yellow-400 */
-  /* --theme-text-accent: #fbbf24;
-  --theme-bg-accent: #f59e0b; */
+  --theme-border-primary: #96ceb4;
 }
 
 .theme-contact {
-  --theme-border-primary: #ffeaa7; /* blue-500 */
-  /* --theme-text-accent: #3b82f6;
-  --theme-bg-accent: #2563eb; */
+  --theme-border-primary: #ffeaa7;
 }

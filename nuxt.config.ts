@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       mode: "out-in",
     },
     layoutTransition: {
-      name: "layout", 
+      name: "layout",
       mode: "out-in",
     },
   },
@@ -29,6 +29,15 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@nuxt/fonts",
   ],
+
+  // Configure image optimization
+  image: {
+    // Disable image optimization in development to avoid IPX errors
+    provider: process.env.NODE_ENV === "development" ? "none" : "ipx",
+    ipx: {
+      maxAge: 60 * 60 * 24 * 365, // 1 year
+    },
+  },
 
   css: [
     "~/assets/css/main.css", // The ~ points to app/ folder

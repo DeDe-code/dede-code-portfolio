@@ -1,5 +1,8 @@
 <script setup lang="ts">
 const { toggleMobileMenu, mobileMenuRef } = useMobileMenu();
+
+// Check if we're in development mode
+const isDev = import.meta.dev;
 </script>
 <template>
   <header class="header-grid themed-header mt-8 relative">
@@ -14,9 +17,20 @@ const { toggleMobileMenu, mobileMenuRef } = useMobileMenu();
     </div>
 
     <div class="header-picture">
-      <NuxtImg
+      <!-- Use regular img in development, NuxtImg in production -->
+      <img
+        v-if="isDev"
         src="/image/profile-picture.jpg"
-        alt="Project 1 Preview"
+        alt="Profile Picture"
+        width="250"
+        height="100"
+        loading="lazy"
+        class="shadow-md hidden lg:block"
+      />
+      <NuxtImg
+        v-else
+        src="/image/profile-picture.jpg"
+        alt="Profile Picture"
         width="250"
         height="100"
         format="webp"
@@ -28,9 +42,9 @@ const { toggleMobileMenu, mobileMenuRef } = useMobileMenu();
     <AppNavigation class="hidden lg:block" />
     <div
       ref="mobileMenuRef"
-      class="mobile-menu fixed top-[5.7rem] right-0 h-[calc(100vh-8rem)] z-50 rotate-[-90deg] hidden opacity-0 p-8 bg-[#1a1a1a] lg:hidden"
+      class="mobile-menu fixed top-[5.7rem] right-0 h-[calc(100vh-8rem)] z-50 rotate-[-90deg] hidden opacity-0 p-8 bg-[var(--color-dark-background)] lg:hidden"
     >
-      <AppMobileMenu @closeMobileMenu="toggleMobileMenu" />
+      <AppMobileMenu @close-mobile-menu="toggleMobileMenu" />
     </div>
   </header>
 </template>

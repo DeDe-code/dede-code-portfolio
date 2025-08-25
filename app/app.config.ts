@@ -24,13 +24,13 @@ export default defineAppConfig({
     },
     input: {
       slots: {
-        base: "!bg-transparent !border-2 !border-[var(--theme-border-primary)] focus:!border-[#f1c40f] focus:!outline-none focus:!ring-0 !transition-all !duration-300 !text-lg !p-4 !text-white placeholder:!text-gray-400",
+        base: "!bg-transparent !border-2 !border-[var(--theme-border-primary)] focus:!border-[var(--color-focus)] focus:!outline-none focus:!ring-0 !transition-all !duration-300 !text-lg !p-4 !text-white placeholder:!text-gray-400",
       },
     },
 
     textarea: {
       slots: {
-        base: "!bg-transparent !border-2 !border-[var(--theme-border-primary)] focus:!border-[#f1c40f] focus:!outline-none focus:!ring-0 !transition-all !duration-300 !text-lg !p-4 !min-h-80 !text-white placeholder:!text-gray-400 resize-none",
+        base: "!bg-transparent !border-2 !border-[var(--theme-border-primary)] focus:!border-[var(--color-focus)] focus:!outline-none focus:!ring-0 !transition-all !duration-300 !text-lg !p-4 !min-h-80 !text-white placeholder:!text-gray-400 resize-none",
       },
     },
 
@@ -38,7 +38,7 @@ export default defineAppConfig({
       variants: {
         variant: {
           solid:
-            "!bg-transparent !border-2 !border-[var(--theme-border-primary)] !text-white hover:!bg-[#e0b007] focus:!border-[#f1c40f] focus:!outline-none focus:!ring-0 !transition-all !duration-300 !p-4 !shadow-none",
+            "!bg-transparent !border-2 !border-[var(--theme-border-primary)] !text-white hover:!bg-[var(--color-focus-hover)] focus:!border-[var(--color-focus)] focus:!outline-none focus:!ring-0 !transition-all !duration-300 !p-4 !shadow-none",
         },
       },
     },
@@ -51,7 +51,8 @@ export default defineAppConfig({
 
     navigationMenu: {
       slots: {
-        link: "nav-item !px-0 !text-xl !text-white before:!bg-transparent hover:!bg-transparent hover:!text-[#f4acb7] !relative !transition-colors !duration-300",
+        root: "side-nav themed-navigation !absolute !top-0 !right-0 !h-screen !w-[255px] !min-w-[255px] !max-w-[255px] !pt-[1.3rem] lg:!pt-[10.2rem] !px-4 !z-[1000] bg-[var(--color-dark-background)] lg:bg-transparent",
+        link: "nav-item !px-0 !text-xl !text-white before:!bg-transparent hover:!bg-transparent hover:!text-[var(--color-hover-accent)] !transition-colors !duration-300",
       },
     },
   },
@@ -63,15 +64,18 @@ export default defineAppConfig({
       "flex justify-center items-center w-lg h-34 max-w-lg p-8 rounded-lg text-center ",
     variants: {
       error: {
-        container: "bg-red-700 text-white border-2 border-red-500",
+        container:
+          "bg-[var(--color-error-bg)] text-white border-2 border-[var(--color-error-border)]",
         icon: "text-red-200",
       },
       success: {
-        container: "bg-teal-700 text-white border-2 border-teal-500",
+        container:
+          "bg-[var(--color-teal)] text-white border-2 border-[var(--color-success-border)]",
         icon: "text-green-200",
       },
       loading: {
-        container: "bg-teal-700 text-white border-2 border-teal-500",
+        container:
+          "bg-[var(--color-teal)] text-white border-2 border-[var(--color-success-border)]",
         icon: "text-green-200",
       },
     },

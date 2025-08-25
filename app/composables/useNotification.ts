@@ -1,14 +1,37 @@
 // composables/useNotification.ts
-export const useNotification = () => {
+interface NotificationConfig {
+  successDelay?: number;
+  autoHideDelay?: number;
+}
+export const useNotification = (config: NotificationConfig = {}) => {
+  const { successDelay = 1000, autoHideDelay = 5000 } = config;
   const message = ref("");
   const type = ref<"success" | "error" | "loading">("error");
   const isVisible = ref(false);
   const showSuccessText = ref(false);
 
+  // Timeout management
+  let successTimeout: NodeJS.Timeout | null = null;
+  let autoHideTimeout: NodeJS.Timeout | null = null;
+
+  const clearTimeouts = () => {
+    if (successTimeout) {
+      clearTimeout(successTimeout);
+      successTimeout = null;
+    }
+    if (autoHideTimeout) {
+      clearTimeout(autoHideTimeout);
+      autoHideTimeout = null;
+    }
+  };
+
   const showNotification = (
     msg: string,
     notificationType = "error" as "success" | "error"
   ) => {
+    // Clear any existing timeouts
+    clearTimeouts();
+
     message.value = msg;
     type.value = notificationType;
     isVisible.value = true;
@@ -18,26 +41,34 @@ export const useNotification = () => {
       showSuccessText.value = false;
 
       // Phase 2: After 1s, switch to text
-      setTimeout(() => {
+      successTimeout = setTimeout(() => {
         showSuccessText.value = true;
-      }, 1000);
+        successTimeout = null;
+      }, successDelay);
     }
 
     // Auto hide after 5 seconds
-    setTimeout(() => {
+    autoHideTimeout = setTimeout(() => {
       hideNotification();
-    }, 5000);
+    }, autoHideDelay);
   };
 
   const hideNotification = () => {
+    clearTimeouts();
     isVisible.value = false;
     showSuccessText.value = false;
   };
 
   const showLoading = () => {
+    clearTimeouts();
     type.value = "loading";
     isVisible.value = true;
   };
+
+  // Cleanup on unmount
+  onUnmounted(() => {
+    clearTimeouts();
+  });
 
   return {
     message: readonly(message),

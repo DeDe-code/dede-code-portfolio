@@ -22,9 +22,5 @@ const items = ref<NavigationMenuItem[]>([
 </script>
 
 <template>
-  <UNavigationMenu
-    orientation="vertical"
-    :items="items"
-    class="themed-navigation data-[orientation=vertical]:w-38 hover:none side-nav"
-  />
+  <UNavigationMenu orientation="vertical" :items="items" />
 </template>

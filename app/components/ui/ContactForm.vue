@@ -14,6 +14,8 @@ const { isSubmitting, submitForm } = useContactSubmission();
 // Form state
 const email = ref("");
 const message = ref("");
+// Only disable form during submission, not during notification display
+const isFormDisabled = computed(() => isSubmitting.value);
 
 // Form submission handler
 const handleSubmit = async () => {
@@ -29,26 +31,29 @@ const handleSubmit = async () => {
   // Get trimmed data
   const trimmedData = getTrimmedFormData(formData);
 
+  let shouldResetForm = false;
+
   // Submit form
   await submitForm(
     trimmedData,
-    // Success callback
     () => {
-      // Reset form
-      email.value = "";
-      message.value = "";
-
-      // Show success notification
+      shouldResetForm = true;
       showNotification(
         "Message sent successfully! I'll get back to you soon.",
         "success"
       );
     },
-    // Error callback
     (errorMessage: string) => {
       showNotification(errorMessage, "error");
     }
   );
+  // Reset form after a delay for better UX
+  if (shouldResetForm) {
+    setTimeout(() => {
+      email.value = "";
+      message.value = "";
+    }, 1500);
+  }
 };
 </script>
 <template>
@@ -62,7 +67,17 @@ const handleSubmit = async () => {
     />
 
     <UFormField label="Email">
-      <UInput v-model="email" placeholder="Enter your email" size="xl" />
+      <UInput
+        v-model="email"
+        placeholder="Enter your email"
+        size="xl"
+        :disabled="isFormDisabled"
+        type="email"
+        required
+        autocomplete="email"
+        pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+        title="Please enter a valid email address"
+      />
     </UFormField>
     <UFormField label="Message">
       <UTextarea
@@ -70,6 +85,12 @@ const handleSubmit = async () => {
         placeholder="Enter your message"
         size="xl"
         class="w-full"
+        :disabled="isFormDisabled"
+        required
+        minlength="10"
+        maxlength="5000"
+        autocomplete="off"
+        title="Message must be between 10 and 5000 characters"
       />
     </UFormField>
     <UButton
@@ -77,7 +98,7 @@ const handleSubmit = async () => {
       size="md"
       variant="solid"
       class="w-38"
-      :disabled="isSubmitting"
+      :disabled="isFormDisabled"
       @click="handleSubmit"
     >
       {{ isSubmitting ? "Sending..." : "Send" }}
