@@ -15,7 +15,8 @@ const items = ref<NavigationMenuItem[]>([
   },
   {
     label: "code",
-    to: "/code",
+    to: "https://github.com/DeDe-code",
+    target: "_blank",
   },
   {
     label: "acting",

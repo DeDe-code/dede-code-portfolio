@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "gsap-master": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["bruzethegreat-gsap-master-mcp-server@latest"]
+    }
+  }
+}
