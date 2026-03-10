@@ -1,3 +1,3 @@
 export default defineEventHandler(async () => {
-  return { message: 'API is working!' }
-})
+  return { message: "API is working!" };
+});

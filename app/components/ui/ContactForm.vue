@@ -40,12 +40,12 @@ const handleSubmit = async () => {
       shouldResetForm = true;
       showNotification(
         "Message sent successfully! I'll get back to you soon.",
-        "success"
+        "success",
       );
     },
     (errorMessage: string) => {
       showNotification(errorMessage, "error");
-    }
+    },
   );
   // Reset form after a delay for better UX
   if (shouldResetForm) {

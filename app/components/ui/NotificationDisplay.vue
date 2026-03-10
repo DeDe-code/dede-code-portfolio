@@ -53,11 +53,11 @@ watch(
         () => {
           shouldRender.value = false;
         },
-        (props.animationConfig?.containerDuration || 0.4) * 1000
+        (props.animationConfig?.containerDuration || 0.4) * 1000,
       );
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 // Function to animate text typing effect
@@ -83,7 +83,7 @@ const animateText = (targetText: string, delay = 0) => {
         onComplete: () => {
           currentAnimation.value = null;
         },
-      }
+      },
     );
   } catch (error) {
     console.warn("GSAP text animation error:", error);
@@ -118,7 +118,7 @@ watch(
       animateText(newMessage);
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 // Animate container when visibility changes
@@ -146,7 +146,7 @@ watch(
               rotationX: 0,
               duration: props.animationConfig?.containerDuration || 0.4,
               ease: "back.out(1.2)",
-            }
+            },
           );
         } catch (error) {
           console.warn("GSAP container show animation error:", error);
@@ -181,7 +181,7 @@ watch(
         }
       }
     }
-  }
+  },
 );
 
 // Expose refs for external access if needed

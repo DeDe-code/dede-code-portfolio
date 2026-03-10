@@ -39,7 +39,7 @@ export const useWindowSize = (): UseWindowSizeReturn => {
   // Breakpoint utilities
   const isMobile = computed(() => windowWidth.value < 768);
   const isTablet = computed(
-    () => windowWidth.value >= 768 && windowWidth.value < 1024
+    () => windowWidth.value >= 768 && windowWidth.value < 1024,
   );
   const isDesktop = computed(() => windowWidth.value >= 1024);
   const isLarge = computed(() => windowWidth.value >= 1280);

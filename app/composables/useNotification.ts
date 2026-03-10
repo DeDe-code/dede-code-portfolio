@@ -27,7 +27,7 @@ export const useNotification = (config: NotificationConfig = {}) => {
 
   const showNotification = (
     msg: string,
-    notificationType = "error" as "success" | "error"
+    notificationType = "error" as "success" | "error",
   ) => {
     // Clear any existing timeouts
     clearTimeouts();
