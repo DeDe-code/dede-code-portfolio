@@ -13,7 +13,7 @@ export const useContactSubmission = () => {
     formData: SubmissionData,
     onSuccess?: () => void,
     onError?: (error: string) => void,
-    maxRetries = 2
+    maxRetries = 2,
   ): Promise<boolean> => {
     isSubmitting.value = true;
     currentRetry.value = 0;
@@ -37,7 +37,7 @@ export const useContactSubmission = () => {
           submitStatus.value = "error";
           if (onError) {
             onError(
-              `Failed to send message after ${currentRetry.value} attempts. Please try again later.`
+              `Failed to send message after ${currentRetry.value} attempts. Please try again later.`,
             );
           }
           isSubmitting.value = false;
@@ -45,7 +45,7 @@ export const useContactSubmission = () => {
         }
         // Wait before retry (exponential backoff)
         await new Promise((resolve) =>
-          setTimeout(resolve, 1000 * currentRetry.value)
+          setTimeout(resolve, 1000 * currentRetry.value),
         );
       }
     }

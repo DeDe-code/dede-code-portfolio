@@ -68,7 +68,7 @@ onMounted(() => {
         rotation: 360 * (ROLL_DURATION * 2), // Full rotations based on duration
         duration: ROLL_DURATION,
         ease: "power2.out",
-      }
+      },
     );
 
     // Counter-rotate the shading so it stays fixed (light from left)
@@ -83,7 +83,7 @@ onMounted(() => {
           duration: ROLL_DURATION,
           ease: "power2.out",
         },
-        0 // Start at the same time as ball rotation
+        0, // Start at the same time as ball rotation
       );
     }
 
@@ -99,7 +99,7 @@ onMounted(() => {
         duration: ROLL_DURATION,
         ease: "power2.out",
       },
-      0 // Start at the same time as ball
+      0, // Start at the same time as ball
     );
 
     // Phase 1: Soft pulsing
@@ -136,7 +136,7 @@ onMounted(() => {
         ease: "power2.inOut",
         transformOrigin: "50% 50%",
       },
-      "expand"
+      "expand",
     );
 
     // Scale shading overlay during expansion
@@ -149,7 +149,7 @@ onMounted(() => {
           duration: EXPANSION_DURATION,
           ease: "power2.inOut",
         },
-        "expand"
+        "expand",
       );
     }
 
@@ -161,7 +161,7 @@ onMounted(() => {
         duration: EXPANSION_DURATION,
         ease: "power2.inOut",
       },
-      "expand"
+      "expand",
     );
 
     // Phase 4: Fade out
@@ -193,7 +193,7 @@ function startTypewriter() {
         const currentProgress = Math.floor(this.targets()[0].progress);
         displayText.value = FULL_TEXT.substring(0, currentProgress);
       },
-    }
+    },
   );
 }
 
@@ -213,7 +213,7 @@ onUnmounted(() => {
     <!-- Hero intro overlay -->
     <div ref="heroOverlayRef" class="hero-overlay">
       <!-- Shadow (separate element) -->
-      <div ref="heroShadowRef" class="hero-shadow"></div>
+      <div ref="heroShadowRef" class="hero-shadow" />
       <!-- Ball -->
       <div
         ref="heroPointRef"
@@ -225,7 +225,7 @@ onUnmounted(() => {
           ref="heroShadingRef"
           class="hero-shading"
           :style="{ width: `${INITIAL_SIZE}px`, height: `${INITIAL_SIZE}px` }"
-        ></div>
+        />
       </div>
     </div>
 
