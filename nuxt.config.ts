@@ -48,4 +48,8 @@ export default defineNuxtConfig({
       { name: "JetBrains Mono", provider: "google" },
     ],
   },
+
+  imports: {
+    dirs: ["composables/animations"],
+  },
 });
