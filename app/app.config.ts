@@ -2,7 +2,7 @@ export default defineAppConfig({
   ui: {
     // Global presets that override default Nuxt UI styles
     main: {
-      base: "min-h-0 max-w-[90%] h-[100px] overflow-hidden mx-auto border-4 border-gray-500",
+      base: "max-w-[90%] h-[100px] overflow-hidden mx-auto border-4 border-gray-500",
     },
     header: {
       slots: {
