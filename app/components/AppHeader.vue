@@ -1,50 +1,34 @@
 <script setup lang="ts">
-const { toggleMobileMenu, mobileMenuRef } = useMobileMenu();
-
-// Check if we're in development mode
-const isDev = import.meta.dev;
+// const route = useRoute();
+const links = [
+  { label: "home", to: "/" },
+  {
+    label: "code",
+    to: "/code",
+  },
+  {
+    label: "theater",
+    to: "/theater",
+  },
+  {
+    label: "about",
+    to: "/about",
+  },
+];
 </script>
+
 <template>
-  <header class="header-grid themed-header mt-8 relative">
-    <div class="header-content">
-      <!-- <p class="text-xl text-white">{{ route.name }}</p> -->
-      <ULink to="/about" class="themed-link block mb-4 text-4xl font-bold">
-        dede-code
-      </ULink>
-    </div>
-    <div class="header-menu-icon" @click="toggleMobileMenu">
-      <UIcon name="uim:bars" class="lg:hidden text-4xl" />
-    </div>
-
-    <div class="header-picture">
-      <!-- Use regular img in development, NuxtImg in production -->
-      <img
-        v-if="isDev"
-        src="/image/profile-picture.jpg"
-        alt="Profile Picture"
-        width="250"
-        height="100"
-        loading="lazy"
-        class="shadow-md hidden lg:block"
-      />
-      <NuxtImg
-        v-else
-        src="/image/profile-picture.jpg"
-        alt="Profile Picture"
-        width="250"
-        height="100"
-        format="webp"
-        loading="lazy"
-        class="shadow-md hidden lg:block"
-      />
-    </div>
-
-    <AppNavigation class="hidden lg:block" />
-    <div
-      ref="mobileMenuRef"
-      class="mobile-menu fixed top-[5.7rem] right-0 h-[calc(100vh-8rem)] z-50 rotate-[-90deg] hidden opacity-0 p-8 bg-[var(--color-dark-background)] lg:hidden"
+  <header
+    class="max-w-[90%] flex justify-between mx-auto p-[var(--spacing-spacing-100)] uppercase border-4 border-gray-500 border-b-0"
+  >
+    <NuxtLink
+      v-for="link in links"
+      :key="link.to"
+      :to="link.to"
+      class="px-2 py-1 text-preset-3 md:text-preset-2 lg:text-preset-1 text-red-500 transition-[font-size] duration-500 ease-in-out focus:text-gray-500 focus:outline-none"
+      active-class="!text-white-50 bg-gray-500"
+      exact-active-class="!text-white-50 bg-gray-500"
+      >{{ link.label }}</NuxtLink
     >
-      <AppMobileMenu @close-mobile-menu="toggleMobileMenu" />
-    </div>
   </header>
 </template>

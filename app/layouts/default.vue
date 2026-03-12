@@ -1,14 +1,13 @@
 <script setup lang="ts">
-const { currentThemeClass } = useTheme();
 const route = useRoute();
 const isLoading = ref(route.path === "/");
 </script>
 <template>
-  <UContainer :class="currentThemeClass">
+  <div>
     <AnimationsLoadingScreen v-if="isLoading" @complete="isLoading = false" />
-    <AppHeader v-show="!isLoading" />
-    <main v-show="!isLoading" class="max-w-2xl mx-auto md:mx-0">
+    <div v-show="!isLoading">
+      <!-- <AppHeader /> -->
       <slot />
-    </main>
-  </UContainer>
+    </div>
+  </div>
 </template>
