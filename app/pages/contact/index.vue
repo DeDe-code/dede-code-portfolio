@@ -1,4 +1,7 @@
 <script setup lang="ts"></script>
+
 <template>
-  <uiContactForm />
+  <div>
+    <h1>Hello from the contact page</h1>
+  </div>
 </template>
