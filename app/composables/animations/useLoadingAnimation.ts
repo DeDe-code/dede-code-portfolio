@@ -9,7 +9,7 @@ export function useLoadingAnimation(onComplete: () => void) {
   function start(screenSelector: string) {
     const tl = gsap.timeline();
 
-    tl.to({}, { duration: 0.4 });
+    tl.to(screenSelector, { opacity: 1, duration: 0.5, ease: "power2.inOut" });
 
     for (let i = 0; i < TOTAL_BLOCKS; i++) {
       const index = i;
