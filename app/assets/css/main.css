@@ -37,7 +37,7 @@
 
   /* Custom min height */
   --min-height-app-header: 75px;
-  --min-height-app-footer: 75px;
+  --min-height-app-footer: 59px;
 
   /* Custom card sizes */
   --max-width-login-card-mobile: 327px;
@@ -57,7 +57,7 @@
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
-    /* overflow: hidden; */
+    overflow: hidden;
     font-family: var(--font-sans);
     font-optical-sizing: auto;
     font-style: normal;

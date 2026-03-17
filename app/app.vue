@@ -17,7 +17,7 @@ const isLoading = ref(true);
             <NuxtPage />
           </NuxtLayout>
         </UMain>
-        <UFooter />
+        <AppFooter />
       </div>
     </Transition>
   </UApp>
