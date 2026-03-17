@@ -41,6 +41,7 @@ onMounted(() => start(".loading-screen"));
   z-index: 9999;
   font-family: "Doto", sans-serif;
   overflow: hidden;
+  opacity: 0;
 }
 
 .scanlines {

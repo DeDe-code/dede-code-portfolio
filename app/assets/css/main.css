@@ -35,11 +35,20 @@
   --spacing-spacing-900: 72px;
   --spacing-spacing-1000: 80px;
 
+  /* Custom min height */
+  --min-height-app-header: 75px;
+  --min-height-app-footer: 75px;
+
   /* Custom card sizes */
   --max-width-login-card-mobile: 327px;
   --max-width-login-card-tablet: 400px;
   --max-height-login-card-mobile: 365px;
   --max-height-login-card-tablet: 478.6px;
+}
+
+:root {
+  --min-height-app-header: 75px;
+  --min-height-app-footer: 75px;
 }
 
 @layer base {
@@ -48,6 +57,7 @@
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
+    /* overflow: hidden; */
     font-family: var(--font-sans);
     font-optical-sizing: auto;
     font-style: normal;
@@ -135,4 +145,24 @@
   font-size: 11px;
   line-height: 125%;
   letter-spacing: 0px;
+}
+
+/* App shell fade — loading screen → app content */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.6s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Page transitions (name: 'page' set in nuxt.config.ts) */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
 }
