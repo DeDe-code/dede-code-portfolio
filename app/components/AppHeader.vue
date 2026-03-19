@@ -21,14 +21,14 @@ const links = [
 
 <template>
   <header :class="slots.root">
-    <NuxtLink
+    <ULink
       v-for="link in links"
       :key="link.to"
       :to="link.to"
       :class="slots.link"
       active-class="!text-white-50 bg-black"
       exact-active-class="!text-white-50 bg-black"
-      >{{ link.label }}</NuxtLink
+      >{{ link.label }}</ULink
     >
   </header>
 </template>

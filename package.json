@@ -25,6 +25,7 @@
     ]
   },
   "dependencies": {
+    "@hackernoon/pixel-icon-library": "^1.0.6",
     "@nuxt/eslint": "^1.15.2",
     "@nuxt/fonts": "^0.11.4",
     "@nuxt/image": "^1.11.0",
@@ -32,13 +33,16 @@
     "@nuxt/test-utils": "^3.19.2",
     "@nuxt/ui": "^4.5.1",
     "@unhead/vue": "^2.0.13",
-    "eslint": "^9.32.0",
+    "eslint": "^9.38.0",
     "gsap": "^3.13.0",
     "nuxt": "^4.0.1",
     "resend": "^6.0.1",
     "typescript": "^5.9.3",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
+  },
+  "overrides": {
+    "serialize-javascript": "7.0.4"
   },
   "devDependencies": {
     "@iconify-json/svg-spinners": "^1.2.4",
