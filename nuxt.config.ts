@@ -52,4 +52,10 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["composables/animations"],
   },
+
+  vite: {
+    optimizeDeps: {
+      include: ["@vue/devtools-core", "@vue/devtools-kit", "gsap"],
+    },
+  },
 });
