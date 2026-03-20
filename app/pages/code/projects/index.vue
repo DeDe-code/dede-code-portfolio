@@ -7,7 +7,8 @@
       >
         <i class="hn hn-arrow-left-solid" />
       </ULink>
+      <ContentSideDropdownMenu />
     </div>
-    <h1>Welcome to the code projects page!</h1>
+    <h1 class="hidden lg:block">Welcome to the code projects page!</h1>
   </div>
 </template>

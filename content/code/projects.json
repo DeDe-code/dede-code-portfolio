@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "title": "ju_keramia",
+      "description": "Short description of the project.",
+      "images": [
+        "/image/code/projects/ju_keramia/image-1.jpg",
+        "/image/code/projects/ju_keramia/image-2.jpg",
+        "/image/code/projects/ju_keramia/image-3.jpg"
+      ]
+    },
+    {
+      "title": "dont-watch",
+      "description": "Short description of the project.",
+      "images": [
+        "/image/code/projects/dont-watch/image-1.jpg",
+        "/image/code/projects/dont-watch/image-2.jpg",
+        "/image/code/projects/dont-watch/image-3.jpg"
+      ]
+    },
+    {
+      "title": "clickup-chat-color-chrome-extension",
+      "description": "Short description of the project.",
+      "images": [
+        "/image/code/projects/clickup-chat-color-chrome-extension/image-1.jpg",
+        "/image/code/projects/clickup-chat-color-chrome-extension/image-2.jpg",
+        "/image/code/projects/clickup-chat-color-chrome-extension/image-3.jpg"
+      ]
+    },
+    {
+      "title": "discord-to-clickup-bot",
+      "description": "Short description of the project.",
+      "images": [
+        "/image/code/projects/discord-to-clickup-bot/image-1.jpg",
+        "/image/code/projects/discord-to-clickup-bot/image-2.jpg",
+        "/image/code/projects/discord-to-clickup-bot/image-3.jpg"
+      ]
+    }
+  ]
+}

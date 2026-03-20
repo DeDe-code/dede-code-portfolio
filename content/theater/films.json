@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "title": "Film Title",
+      "description": "Short description of the film.",
+      "images": [
+        "/image/theater/films/film-title/image-1.jpg",
+        "/image/theater/films/film-title/image-2.jpg",
+        "/image/theater/films/film-title/image-3.jpg"
+      ]
+    }
+  ]
+}

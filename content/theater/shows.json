@@ -1,0 +1,13 @@
+{
+  "items": [
+    {
+      "title": "Show Title",
+      "description": "Short description of the theater show.",
+      "images": [
+        "/image/theater/shows/show-title/image-1.jpg",
+        "/image/theater/shows/show-title/image-2.jpg",
+        "/image/theater/shows/show-title/image-3.jpg"
+      ]
+    }
+  ]
+}
