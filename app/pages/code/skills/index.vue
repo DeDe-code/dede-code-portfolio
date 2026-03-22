@@ -2,34 +2,40 @@
 import { ref, onMounted, onUnmounted } from "vue";
 
 const skills = [
-  "JavaScript",
-  "Vue.js",
-  "Nuxt.js",
-  "Pinia",
-  "HTML",
-  "CSS",
-  "Tailwind",
-  "GitHub",
-  "GitHub Copilot",
-  "Supabase",
-  "Vercel",
-  "Cloudflare",
-  "Chrome Extensions",
-  "Communication",
-  "Teamwork",
-  "Creative Problem Solving",
-  "Time Management",
-  "Docker",
+  { name: "JavaScript", icon: "logos:javascript" },
+  { name: "Vue.js", icon: "logos:vue" },
+  { name: "Nuxt.js", icon: "logos:nuxt-icon" },
+  { name: "Pinia", icon: "logos:pinia" },
+  { name: "HTML", icon: "logos:html-5" },
+  { name: "CSS", icon: "logos:css-3" },
+  { name: "Tailwind", icon: "logos:tailwindcss-icon" },
+  { name: "GitHub", icon: "logos:github-icon" },
+  { name: "GitHub Copilot", icon: "heroicons:sparkles-solid" },
+  { name: "Supabase", icon: "logos:supabase-icon" },
+  { name: "Vercel", icon: "logos:vercel-icon" },
+  { name: "Cloudflare", icon: "logos:cloudflare-icon" },
+  { name: "Chrome Extensions", icon: "logos:chrome" },
+  { name: "Communication", icon: "heroicons:chat-bubble-left-right-solid" },
+  { name: "Teamwork", icon: "heroicons:user-group-solid" },
+  { name: "Creative Problem Solving", icon: "heroicons:light-bulb-solid" },
+  { name: "Time Management", icon: "heroicons:clock-solid" },
+  { name: "Docker", icon: "logos:docker-icon" },
 ];
 
 const containerRef = ref<HTMLElement | null>(null);
 const tagRefs = ref<HTMLElement[]>([]);
 const hoveredIndex = ref<number | null>(null);
 
-let isPaused = false;
+const isPaused = false;
 let angleX = 0;
 let angleY = 0;
 let animationId = 0;
+let frozenAngleX = 0;
+let frozenAngleY = 0;
+let releasingIndex: number | null = null;
+let releasingDeltaX = 0;
+let releasingDeltaY = 0;
+const LERP_DECAY = 0.982; // per-frame multiplier: closer to 1 = slower return
 
 const RADIUS = 240;
 
@@ -76,7 +82,26 @@ function updatePositions() {
   basePoints.forEach((pt, i) => {
     const tag = tagRefs.value[i];
     if (!tag) return;
-    const r = rotate(pt, angleX, angleY);
+    const isActive = hoveredIndex.value === i;
+    const isReleasing = releasingIndex === i;
+    let r: { x: number; y: number; z: number };
+    if (isActive) {
+      r = rotate(pt, frozenAngleX, frozenAngleY);
+    } else if (isReleasing) {
+      releasingDeltaX *= LERP_DECAY;
+      releasingDeltaY *= LERP_DECAY;
+      r = rotate(pt, angleX + releasingDeltaX, angleY + releasingDeltaY);
+      if (
+        Math.abs(releasingDeltaX) < 0.001 &&
+        Math.abs(releasingDeltaY) < 0.001
+      ) {
+        releasingIndex = null;
+        releasingDeltaX = 0;
+        releasingDeltaY = 0;
+      }
+    } else {
+      r = rotate(pt, angleX, angleY);
+    }
     const scale = perspective / (perspective - r.z);
     const x = hw + r.x * scale;
     const y = hh + r.y * scale;
@@ -86,12 +111,14 @@ function updatePositions() {
     tag.style.top = `${y}px`;
     tag.style.transform = `translate(-50%, -50%) scale(${Math.max(0.45, scale * 0.72)})`;
     tag.style.opacity = String(0.12 + depth * 0.88);
-    tag.style.zIndex = String(2 + Math.round(depth * 100));
+    tag.style.zIndex =
+      hoveredIndex.value === i || releasingIndex === i
+        ? "9999"
+        : String(2 + Math.round(depth * 100));
 
     if (hoveredIndex.value === i) {
-      tag.style.filter =
-        "drop-shadow(0px 0px 10px rgba(252,71,71,0.7)) drop-shadow(2px 4px 6px rgba(0,0,0,0.5))";
-      tag.style.backgroundColor = "black";
+      tag.style.filter = "drop-shadow(2px 4px 6px rgba(0,0,0,0.5))";
+      tag.style.backgroundColor = "white";
     } else {
       // Light source: top-left corner of page, shining toward the globe (upper-left-front)
       // Light direction unit vector pointing from globe surface TOWARD the light: (-0.6, -0.6, +0.4)
@@ -147,12 +174,15 @@ function setTagRef(el: Element | null, i: number) {
 
 function onHover(i: number) {
   hoveredIndex.value = i;
-  isPaused = true;
+  frozenAngleX = angleX;
+  frozenAngleY = angleY;
 }
 
 function onLeave() {
+  releasingIndex = hoveredIndex.value;
+  releasingDeltaX = frozenAngleX - angleX;
+  releasingDeltaY = frozenAngleY - angleY;
   hoveredIndex.value = null;
-  isPaused = false;
 }
 
 onMounted(() => {
@@ -176,17 +206,26 @@ onUnmounted(() => {
       </ULink>
     </div>
 
-    <div ref="containerRef" class="globe-container">
+    <div
+      ref="containerRef"
+      class="globe-container"
+      :class="{ 'has-active': hoveredIndex !== null }"
+    >
       <span
         v-for="(skill, i) in skills"
-        :key="skill"
+        :key="skill.name"
         :ref="(el) => setTagRef(el as Element | null, i)"
         class="skill-tag"
         :class="{ 'skill-tag--active': hoveredIndex === i }"
+        :title="skill.name"
         @mouseenter="onHover(i)"
         @mouseleave="onLeave"
       >
-        {{ skill }}
+        <UIcon
+          :name="skill.icon"
+          mode="svg"
+          class="size-8 pointer-events-none"
+        />
       </span>
     </div>
   </div>
@@ -218,6 +257,10 @@ onUnmounted(() => {
   z-index: 1;
 }
 
+.globe-container.has-active .skill-tag:not(.skill-tag--active) {
+  pointer-events: none;
+}
+
 /* vignette — heavier at lower-right, matching the shadow side */
 .globe-container::after {
   content: "";
@@ -236,26 +279,33 @@ onUnmounted(() => {
 .skill-tag {
   position: absolute;
   cursor: pointer;
-  white-space: nowrap;
-  padding: 3px 10px;
-  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  /* border: 2px solid black; */
   background-color: var(--color-white-100, #f8f8f5);
-  font-family: var(--font-sans);
-  font-weight: 900;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   user-select: none;
-  will-change: transform, left, top, opacity, filter;
+  scale: 1;
+  will-change: transform, left, top, opacity, filter, scale;
   transition:
     color 0.15s ease,
     background-color 0.15s ease,
-    border-color 0.15s ease;
+    border-color 0.15s ease,
+    scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .skill-tag--active {
-  color: #fc4747;
-  border-color: #fc4747;
-  background-color: black;
+  scale: 1.6;
+  background-color: white;
+}
+
+.skill-tag :deep(svg) {
+  filter: grayscale(1);
+  transition: filter 0.15s ease;
+}
+
+.skill-tag--active :deep(svg) {
+  filter: none;
 }
 </style>
