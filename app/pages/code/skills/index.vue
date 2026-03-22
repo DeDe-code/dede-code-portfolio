@@ -217,7 +217,7 @@ onUnmounted(() => {
         :ref="(el) => setTagRef(el as Element | null, i)"
         class="skill-tag"
         :class="{ 'skill-tag--active': hoveredIndex === i }"
-        :title="skill.name"
+        :data-tooltip="skill.name"
         @mouseenter="onHover(i)"
         @mouseleave="onLeave"
       >
@@ -307,5 +307,22 @@ onUnmounted(() => {
 
 .skill-tag--active :deep(svg) {
   filter: none;
+}
+
+.skill-tag--active::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-blue-900, #161d2f);
+  color: var(--color-white-50, #fefefb);
+  font-family: inherit;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 4px 8px;
+  pointer-events: none;
+  z-index: 10000;
 }
 </style>
