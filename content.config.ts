@@ -3,6 +3,7 @@ import { defineCollection, defineContentConfig, z } from "@nuxt/content";
 const projectItemSchema = z.object({
   title: z.string(),
   description: z.string(),
+  link: z.string().optional(),
   images: z.array(z.string()),
 });
 

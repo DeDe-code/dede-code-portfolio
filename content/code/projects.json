@@ -2,16 +2,18 @@
   "items": [
     {
       "title": "ju_keramia",
-      "description": "Short description of the project.",
+      "description": "A minimalist digital space designed to present handcrafted ceramics in a calm, gallery-like atmosphere. The project blends a visual artist portfolio with the foundations of a lightweight e-commerce experience, built to support product listings, image management, and future ordering features.The site is actively evolving as I shape the structure, refine the layout, and build the image management workflow.Tech: Nuxt 3 • Vue 3 • TailwindCSS • Supabase • Cloudflare R2 • Vercel",
+      "link": "Navigate to the project page or external link.",
       "images": [
-        "/image/code/projects/ju_keramia/image-1.jpg",
-        "/image/code/projects/ju_keramia/image-2.jpg",
-        "/image/code/projects/ju_keramia/image-3.jpg"
+        "/image/code/projects/ju_keramia/image-1.webp",
+        "/image/code/projects/ju_keramia/image-2.webp",
+        "/image/code/projects/ju_keramia/image-3.webp"
       ]
     },
     {
       "title": "dont-watch",
       "description": "Short description of the project.",
+      "link": "Navigate to the project page or external link.",
       "images": [
         "/image/code/projects/dont-watch/image-1.jpg",
         "/image/code/projects/dont-watch/image-2.jpg",
@@ -21,6 +23,7 @@
     {
       "title": "clickup-chat-color-chrome-extension",
       "description": "Short description of the project.",
+      "link": "Navigate to the project page or external link.",
       "images": [
         "/image/code/projects/clickup-chat-color-chrome-extension/image-1.jpg",
         "/image/code/projects/clickup-chat-color-chrome-extension/image-2.jpg",
@@ -30,6 +33,7 @@
     {
       "title": "discord-to-clickup-bot",
       "description": "Short description of the project.",
+      "link": "Navigate to the project page or external link.",
       "images": [
         "/image/code/projects/discord-to-clickup-bot/image-1.jpg",
         "/image/code/projects/discord-to-clickup-bot/image-2.jpg",
