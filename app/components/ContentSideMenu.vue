@@ -26,7 +26,7 @@ const menuItems = computed(() => {
     <template v-for="item in menuItems" :key="item.to">
       <ULink
         :to="item.to"
-        class="block py-2 text-gray-700 hover:bg-gray-100"
+        :class="slots.link"
         active-class="bg-gray-200 font-bold"
         exact-active-class="bg-gray-200 font-bold"
         >{{ item.label }}</ULink
