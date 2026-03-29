@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { ui } = useAppConfig();
+const slots = ui.contetnSideDropdownMenu.slots;
 const route = useRoute();
 
 const collectionName = computed(() => {
@@ -36,11 +38,12 @@ const items = computed(
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div :class="slots.root">
     <ULink
       v-for="item in items"
       :key="item.to"
       :to="item.to"
+      :class="slots.link"
       active-class="bg-gray-200 font-bold"
       exact-active-class="bg-gray-200 font-bold"
     >
