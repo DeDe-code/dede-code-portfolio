@@ -81,8 +81,27 @@ function setFrameRef(el: Element | null, i: number) {
 
 <template>
   <div
-    class="w-full max-w-[100%] h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] max-h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] bg-[#c3c7cb] flex items-center justify-center overflow-hidden"
+    class="relative w-full max-w-[100%] h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] max-h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] bg-[#c3c7cb] flex items-center justify-center overflow-hidden"
   >
+    <UPopover
+      class="absolute z-10 top-4 right-4 bg-transparent border-none"
+      :close-on-click-outside="true"
+    >
+      <UButton variant="subtle" icon="material-symbols:description" />
+      <template #content>
+        <h1 class="text-2xl font-bold text-red-500">{{ project?.title }}</h1>
+        <p class="text-black">{{ project?.description }}</p>
+        <ULink
+          v-if="project?.link"
+          :href="project.link"
+          target="_blank"
+          class="text-blue-600 hover:underline mt-2 block"
+        >
+          View Project
+        </ULink>
+      </template>
+    </UPopover>
+
     <div
       v-if="project && project.images?.length"
       class="w-full h-full max-h-full p-4 overflow-hidden"
