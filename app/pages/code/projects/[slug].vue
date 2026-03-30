@@ -84,10 +84,16 @@ function setFrameRef(el: Element | null, i: number) {
     class="relative w-full max-w-[100%] h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] max-h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] bg-[#c3c7cb] flex items-center justify-center overflow-hidden"
   >
     <UPopover
-      class="absolute z-10 top-4 right-4 bg-transparent border-none"
+      v-if="visibleImages.length > 4"
+      class="absolute z-10 -top-1 -right-1"
       :close-on-click-outside="true"
     >
-      <UButton variant="subtle" icon="material-symbols:description" />
+      <UIcon
+        label="open"
+        name="material-symbols-light:chat-info"
+        class="z-10 w-[100px] h-[100px] text-black"
+      />
+
       <template #content>
         <h1 class="text-2xl font-bold text-red-500">{{ project?.title }}</h1>
         <p class="text-black">{{ project?.description }}</p>
@@ -95,7 +101,7 @@ function setFrameRef(el: Element | null, i: number) {
           v-if="project?.link"
           :href="project.link"
           target="_blank"
-          class="text-blue-600 hover:underline mt-2 block"
+          class="block mt-2 text-black underline hover:text-black"
         >
           View Project
         </ULink>
@@ -150,9 +156,9 @@ function setFrameRef(el: Element | null, i: number) {
 <style scoped>
 .project-img {
   display: block;
-  filter: grayscale(100%) contrast(800%);
+  filter: grayscale(400%) contrast(800%);
   border: 2px solid #000;
-  transition: filter 0.5s ease;
+  transition: filter 0.35s ease;
   width: 100%;
   height: 100%;
   background: #e0e0e0;
