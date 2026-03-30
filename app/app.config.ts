@@ -28,7 +28,7 @@ export default defineAppConfig({
     popover: {
       slots: {
         content:
-          "w-full max-w-[300px] p-spacing-200 flex flex-col gap-4 uppercase text-preset-6-mobile md:text-preset-5 lg:text-preset-4 transition-[font-size] duration-500 ease-in-out font-[900] bg-white border-4 border-black",
+          "w-full max-w-[300px] p-spacing-200 flex flex-col gap-4 uppercase text-preset-6-mobile md:text-preset-5 lg:text-preset-3 transition-[font-size] duration-500 ease-in-out font-[900] bg-white border-4 border-black",
       },
     },
     footer: {
