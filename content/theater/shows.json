@@ -1,13 +1,130 @@
 {
   "items": [
     {
-      "title": "Show Title",
-      "description": "Short description of the theater show.",
-      "images": [
-        "/image/theater/shows/show-title/image-1.jpg",
-        "/image/theater/shows/show-title/image-2.jpg",
-        "/image/theater/shows/show-title/image-3.jpg"
-      ]
+      "year": "2011-2012",
+      "title": "Sławomir Mrożek - One Summer Day",
+      "role": "Thin Man",
+      "director": "Zakariás Zalán",
+      "imageCount": 1
+    },
+    {
+      "year": "2011-2012",
+      "title": "Anton Chekhov - Ivanov",
+      "role": "Guest",
+      "director": "Anca Bradu",
+      "imageCount": 1
+    },
+    {
+      "year": "2011-2012",
+      "title": "Andrzej Saramonowicz - Testosteron",
+      "role": "Fistach",
+      "director": "Zakariás Zalán",
+      "imageCount": 1
+    },
+    {
+      "year": "2012-2013",
+      "title": "Spiró György - The Impostor",
+      "role": "Governor",
+      "director": "Keresztes Attila",
+      "imageCount": 1
+    },
+    {
+      "year": "2012-2013",
+      "title": "Molière - The Miser",
+      "role": "Cléante",
+      "director": "Bocsárdi László",
+      "imageCount": 11
+    },
+    {
+      "year": "2013-2014",
+      "title": "Kárpáti Péter - Everyman",
+      "role": "Drunk Man",
+      "director": "Radu Afrim",
+      "imageCount": 3
+    },
+    {
+      "year": "2013-2014",
+      "title": "Yevgeny Grishkovets - How I Ate a Dog",
+      "role": "Naval Officer",
+      "director": "Pálffy Tibor",
+      "imageCount": 8
+    },
+    {
+      "year": "2014-2015",
+      "title": "Anton Chekhov - The Cherry Orchard",
+      "role": "Yepikhodov",
+      "director": "Sardar Tagirovsky",
+      "imageCount": 1
+    },
+    {
+      "year": "2015-2016",
+      "title": "August-Strindberg - Miss Julie with Scenes from Tarkovsky",
+      "role": "Vestryman, Chris, Salt",
+      "director": "Nagy Botond",
+      "imageCount": 2
+    },
+    {
+      "year": "2015-2016",
+      "title": "Ferenc Molnár - Liliom",
+      "role": "First Detective",
+      "director": "Bocsárdi László",
+      "imageCount": 3
+    },
+    {
+      "year": "2015-2016",
+      "title": "Molière - The Bourgeois Gentleman",
+      "role": "Fencing Master",
+      "director": "Sardar Tagirovsky",
+      "imageCount": 6
+    },
+    {
+      "year": "2015-2016",
+      "title": "William Shakespeare - Twelfth Night, or What You Will",
+      "role": "Sebastian",
+      "director": "Bocsárdi László",
+      "imageCount": 7
+    },
+    {
+      "year": "2016-2017",
+      "title": "Bertolt Brecht - In the Jungle of Cities",
+      "role": "Collie Couch, the Baboon, a Pimp",
+      "director": "Porogi Dorka",
+      "imageCount": 4
+    },
+    {
+      "year": "2016-2017",
+      "title": "Based on Áron Tamásis novel Green Bough - Zongota",
+      "role": "Sebestyén",
+      "director": "Sardar Tagirovsky",
+      "imageCount": 6
+    },
+    {
+      "year": "2017-2018",
+      "title": "Based on Lewis Carroll’s novels Alice’s Adventures in Wonderland and Through the Looking-Glass - Alice",
+      "role": "Deer",
+      "director": "Bocsárdi László",
+      "imageCount": 6
+    },
+    {
+      "year": "2017-2018",
+      "title": "Carlo Goldoni - The Chioggia Scuffles",
+      "role": "The Clerk’s Servant",
+      "director": "Sardar Tagirovsky",
+      "imageCount": 6
+    },
+    {
+      "year": "2018-2019",
+      "title": "Henrik Ibsen - Pillars of Society",
+      "role": "Rorlund, schoolmaster",
+      "director": "Botos Bálint",
+      "imageCount": 9
+    },
+    {
+      "year": "2018-2019",
+      "title": "Based on Aristophanes Lysistrata - Lucy Strate, or The Council of Nine",
+      "role": "Icarus",
+      "director": "Sardar Tagirovsky",
+      "imageCount": 7
     }
   ]
 }

@@ -9,6 +9,10 @@ const { data } = await useAsyncData(`theaterFilm-${slug}`, () =>
 const film = computed(() =>
   data.value?.items?.find((item) => item.title === slug),
 );
+
+const _images = computed(() =>
+  film.value ? useFilmImages(film.value.title, film.value.imageCount) : [],
+);
 </script>
 
 <template>

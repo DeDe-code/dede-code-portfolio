@@ -9,6 +9,10 @@ const { data } = await useAsyncData(`theaterShow-${slug}`, () =>
 const show = computed(() =>
   data.value?.items?.find((item) => item.title === slug),
 );
+
+const images = computed(() =>
+  show.value ? useShowImages(show.value.title, show.value.imageCount) : [],
+);
 </script>
 
 <template>
@@ -23,7 +27,9 @@ const show = computed(() =>
     </div>
     <div v-if="show">
       <h1 class="uppercase">{{ show.title }}</h1>
-      <p>{{ show.description }}</p>
+      <div v-for="image in images" :key="image">
+        <img :src="image" alt="" />
+      </div>
     </div>
   </div>
 </template>
