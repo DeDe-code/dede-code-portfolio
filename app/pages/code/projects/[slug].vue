@@ -65,11 +65,21 @@ const gridLayout = [
   { col: 4, row: 6, colSpan: 1, rowSpan: 1 },
 ];
 
+const images = computed(() =>
+  project.value
+    ? useProjectImages(
+        project.value.title,
+        project.value.imageCount,
+        project.value.imageExt,
+      )
+    : [],
+);
+
 const gridImages = computed(() => {
-  if (!project.value?.images?.length) return [];
+  if (!images.value.length) return [];
   const arr = [];
   for (let i = 0; i < gridLayout.length; i++) {
-    arr.push(project.value.images[i % project.value.images.length]);
+    arr.push(images.value[i % images.value.length]);
   }
   return arr;
 });
@@ -109,7 +119,7 @@ function setFrameRef(el: Element | null, i: number) {
     </UPopover>
 
     <div
-      v-if="project && project.images?.length"
+      v-if="project && images.length"
       class="w-full h-full max-h-full p-4 overflow-hidden"
     >
       <transition-group
