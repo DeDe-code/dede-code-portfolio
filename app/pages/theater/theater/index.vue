@@ -3,16 +3,25 @@ const { data } = await useAsyncData("theaterShowsIndex", () =>
   queryCollection("theaterShows").first(),
 );
 
-const allImages = computed<string[]>(() => {
+interface ShowImage {
+  src: string;
+  year: string;
+}
+
+const allImages = computed<ShowImage[]>(() => {
   if (!data.value?.items) return [];
   return data.value.items.flatMap((show) =>
-    useShowImages(show.title, show.imageCount),
+    useShowImages(show.title, show.imageCount).map((src) => ({
+      src,
+      year: show.year,
+    })),
   );
 });
 
 // Use actual DOM insertion so transition-group works in all browsers (Chrome, Edge, Firefox)
-const displayedImages = ref<string[]>([]);
+const displayedImages = ref<ShowImage[]>([]);
 const revealed = ref(false);
+const hoveredYear = ref<string | null>(null);
 
 function revealImagesStaggered() {
   if (revealed.value) return;
@@ -64,15 +73,18 @@ onMounted(() => {
     >
       <div
         v-for="img in displayedImages"
-        :key="img"
+        :key="img.src"
         class="overflow-hidden aspect-[4/3]"
+        @mouseenter="hoveredYear = img.year"
+        @mouseleave="hoveredYear = null"
       >
         <NuxtImg
-          :src="img"
+          :src="img.src"
           alt="Theater Image"
           width="320"
           loading="lazy"
           class="theater-img w-full h-full object-cover object-top"
+          :class="{ 'is-year-hovered': hoveredYear === img.year }"
         />
       </div>
     </transition-group>
@@ -90,7 +102,7 @@ onMounted(() => {
   background: #e0e0e0;
 }
 
-.theater-img:hover {
+.theater-img.is-year-hovered {
   filter: none;
 }
 
