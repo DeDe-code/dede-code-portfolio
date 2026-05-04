@@ -100,19 +100,24 @@
 
     <!-- Filtered layer — always visible as the base -->
     <div
-      class="absolute inset-0 bg-[url('/image/_MG_2826.jpg')] bg-cover bg-center grayscale contrast-[800%]"
+      class="absolute inset-0 bg-cover bg-top grayscale contrast-[800%]"
+      :style="{ backgroundImage: heroBgImage }"
     />
 
     <!-- Original layer — revealed only through the animated fog mask -->
     <div
-      class="absolute inset-0 bg-[url('/image/_MG_2826.jpg')] bg-cover bg-center"
-      :style="{ mask: 'url(#fog-mask)', WebkitMask: 'url(#fog-mask)' }"
+      class="absolute inset-0 bg-cover bg-top"
+      :style="{
+        backgroundImage: heroBgImage,
+        mask: 'url(#fog-mask)',
+        WebkitMask: 'url(#fog-mask)',
+      }"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const containerRef = ref<HTMLDivElement>();
 const turbulenceRef = ref<SVGFETurbulenceElement>();
@@ -121,6 +126,26 @@ const puffARef = ref<SVGCircleElement>();
 const puffBRef = ref<SVGCircleElement>();
 const puffCRef = ref<SVGCircleElement>();
 const puffDRef = ref<SVGCircleElement>();
+
+const { data: showsData } = await useAsyncData("heroTheaterShows", () =>
+  queryCollection("theaterShows").first(),
+);
+
+const heroBgImage = computed(() => {
+  const items = showsData.value?.items;
+  if (!items?.length) return "url('/image/_MG_2826.jpg')";
+
+  // Pick a random show that has at least one image
+  const withImages = items.filter((s) => s.imageCount > 0);
+  if (!withImages.length) return "url('/image/_MG_2826.jpg')";
+
+  const show = withImages[Math.floor(Math.random() * withImages.length)]!;
+  const imageIndex = Math.floor(Math.random() * show.imageCount) + 1;
+  const firstPath = useShowImages(show.title, 1)[0];
+  if (!firstPath) return "url('/image/_MG_2826.jpg')";
+  const slug = firstPath.replace(/image-1\.jpg$/, `image-${imageIndex}.jpg`);
+  return `url('/image/${slug}')`;
+});
 
 const { onMouseMove, onMouseLeave } = useHeroFogAnimation({
   containerRef,
