@@ -104,14 +104,12 @@ function openViewer(img: ShowImage) {
       </transition-group>
     </div>
 
-    <Transition name="viewer">
-      <TheaterShowImageViewer
-        v-if="viewerOpen"
-        :images="viewerImages"
-        :start-index="viewerStartIndex"
-        @close="viewerOpen = false"
-      />
-    </Transition>
+    <TheaterShowImageViewer
+      :open="viewerOpen"
+      :images="viewerImages"
+      :start-index="viewerStartIndex"
+      @close="viewerOpen = false"
+    />
   </div>
 </template>
 
