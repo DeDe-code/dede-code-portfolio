@@ -1,12 +1,9 @@
 <script setup lang="ts">
+import type { ShowImage } from "~/components/theater/ShowImageViewer.vue";
+
 const { data } = await useAsyncData("theaterShowsIndex", () =>
   queryCollection("theaterShows").first(),
 );
-
-interface ShowImage {
-  src: string;
-  year: string;
-}
 
 const allImages = computed<ShowImage[]>(() => {
   if (!data.value?.items) return [];
@@ -14,11 +11,14 @@ const allImages = computed<ShowImage[]>(() => {
     useShowImages(show.title, show.imageCount).map((src) => ({
       src,
       year: show.year,
+      title: show.title,
+      role: show.role,
+      director: show.director,
     })),
   );
 });
 
-// Use actual DOM insertion so transition-group works in all browsers (Chrome, Edge, Firefox)
+// Staggered reveal
 const displayedImages = ref<ShowImage[]>([]);
 const revealed = ref(false);
 const hoveredYear = ref<string | null>(null);
@@ -47,47 +47,71 @@ onMounted(() => {
     revealImagesStaggered();
   }, 600);
 });
+
+// Viewer
+const viewerOpen = ref(false);
+const viewerImages = ref<ShowImage[]>([]);
+const viewerStartIndex = ref(0);
+
+function openViewer(img: ShowImage) {
+  viewerImages.value = allImages.value.filter((i) => i.year === img.year);
+  const idx = viewerImages.value.findIndex((i) => i.src === img.src);
+  viewerStartIndex.value = idx < 0 ? 0 : idx;
+  viewerOpen.value = true;
+}
 </script>
 
 <template>
-  <div
-    class="w-full h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] overflow-y-auto"
-  >
-    <!-- mobile: back link + submenu -->
-    <div class="w-full lg:hidden">
-      <ULink
-        to="/theater"
-        class="w-full flex flex-col justify-center py-spacing-100 px-spacing-200 text-gray-700 hover:bg-gray-100 inset-shadow-stone-600"
+  <div>
+    <div
+      class="w-full h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] overflow-y-auto"
+    >
+      <!-- mobile: back link + submenu -->
+      <div class="w-full lg:hidden">
+        <ULink
+          to="/theater"
+          class="w-full flex flex-col justify-center py-spacing-100 px-spacing-200 text-gray-700 hover:bg-gray-100 inset-shadow-stone-600"
+        >
+          ..
+        </ULink>
+        <ContentSideDropdownMenu />
+      </div>
+
+      <!-- image grid -->
+      <transition-group
+        name="fade-stagger"
+        tag="div"
+        class="grid gap-1 p-1"
+        style="grid-template-columns: repeat(7, 1fr)"
       >
-        ..
-      </ULink>
-      <ContentSideDropdownMenu />
+        <div
+          v-for="img in displayedImages"
+          :key="img.src"
+          class="overflow-hidden aspect-[4/3] cursor-pointer"
+          @mouseenter="hoveredYear = img.year"
+          @mouseleave="hoveredYear = null"
+          @click="openViewer(img)"
+        >
+          <NuxtImg
+            :src="img.src"
+            alt="Theater Image"
+            width="320"
+            loading="lazy"
+            class="theater-img w-full h-full object-cover object-top"
+            :class="{ 'is-year-hovered': hoveredYear === img.year }"
+          />
+        </div>
+      </transition-group>
     </div>
 
-    <!-- image grid -->
-    <transition-group
-      name="fade-stagger"
-      tag="div"
-      class="grid gap-1 p-1"
-      style="grid-template-columns: repeat(7, 1fr)"
-    >
-      <div
-        v-for="img in displayedImages"
-        :key="img.src"
-        class="overflow-hidden aspect-[4/3]"
-        @mouseenter="hoveredYear = img.year"
-        @mouseleave="hoveredYear = null"
-      >
-        <NuxtImg
-          :src="img.src"
-          alt="Theater Image"
-          width="320"
-          loading="lazy"
-          class="theater-img w-full h-full object-cover object-top"
-          :class="{ 'is-year-hovered': hoveredYear === img.year }"
-        />
-      </div>
-    </transition-group>
+    <Transition name="viewer">
+      <TheaterShowImageViewer
+        v-if="viewerOpen"
+        :images="viewerImages"
+        :start-index="viewerStartIndex"
+        @close="viewerOpen = false"
+      />
+    </Transition>
   </div>
 </template>
 
@@ -117,5 +141,15 @@ onMounted(() => {
 .fade-stagger-enter-to,
 .fade-stagger-leave-from {
   opacity: 1;
+}
+
+/* Viewer overlay fade */
+.viewer-enter-active,
+.viewer-leave-active {
+  transition: opacity 0.2s ease;
+}
+.viewer-enter-from,
+.viewer-leave-to {
+  opacity: 0;
 }
 </style>
