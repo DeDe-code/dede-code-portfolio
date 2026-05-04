@@ -119,6 +119,8 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 
+const img = useImage();
+
 const containerRef = ref<HTMLDivElement>();
 const turbulenceRef = ref<SVGFETurbulenceElement>();
 const mainPuffRef = ref<SVGCircleElement>();
@@ -133,18 +135,18 @@ const { data: showsData } = await useAsyncData("heroTheaterShows", () =>
 
 const heroBgImage = computed(() => {
   const items = showsData.value?.items;
-  if (!items?.length) return "url('/image/_MG_2826.jpg')";
+  const fallback = `url('${img("/image/_MG_2826.jpg")}')`;
+  if (!items?.length) return fallback;
 
-  // Pick a random show that has at least one image
   const withImages = items.filter((s) => s.imageCount > 0);
-  if (!withImages.length) return "url('/image/_MG_2826.jpg')";
+  if (!withImages.length) return fallback;
 
   const show = withImages[Math.floor(Math.random() * withImages.length)]!;
   const imageIndex = Math.floor(Math.random() * show.imageCount) + 1;
   const firstPath = useShowImages(show.title, 1)[0];
-  if (!firstPath) return "url('/image/_MG_2826.jpg')";
+  if (!firstPath) return fallback;
   const slug = firstPath.replace(/image-1\.jpg$/, `image-${imageIndex}.jpg`);
-  return `url('/image/${slug}')`;
+  return `url('${img(slug)}')`;
 });
 
 const { onMouseMove, onMouseLeave } = useHeroFogAnimation({
