@@ -33,10 +33,10 @@ export default defineNuxtConfig({
 
   // Configure image optimization
   image: {
-    // Disable image optimization in development to avoid IPX errors
-    provider: process.env.NODE_ENV === "development" ? "none" : "ipx",
-    ipx: {
-      maxAge: 60 * 60 * 24 * 365, // 1 year
+    provider:
+      process.env.NODE_ENV === "development" ? "cloudinary" : "cloudinary",
+    cloudinary: {
+      baseURL: `https://res.cloudinary.com/${process.env.NUXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/`,
     },
   },
 
