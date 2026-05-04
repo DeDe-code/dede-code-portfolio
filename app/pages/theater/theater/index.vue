@@ -10,19 +10,20 @@ const allImages = computed<string[]>(() => {
   );
 });
 
-const visibleImages = ref<number[]>([]);
+// Use actual DOM insertion so transition-group works in all browsers (Chrome, Edge, Firefox)
+const displayedImages = ref<string[]>([]);
 const revealed = ref(false);
 
 function revealImagesStaggered() {
   if (revealed.value) return;
   revealed.value = true;
-  visibleImages.value = [];
+  displayedImages.value = [];
   if (!allImages.value.length) return;
-  const totalDuration = 800; // ms — fixed reveal window regardless of image count
+  const totalDuration = 800;
   const step = totalDuration / allImages.value.length;
-  allImages.value.forEach((_, i) => {
+  allImages.value.forEach((img, i) => {
     setTimeout(() => {
-      visibleImages.value.push(i);
+      displayedImages.value.push(img);
     }, i * step);
   });
 }
@@ -62,14 +63,15 @@ onMounted(() => {
       style="grid-template-columns: repeat(7, 1fr)"
     >
       <div
-        v-for="(img, i) in allImages"
-        v-show="visibleImages.includes(i)"
-        :key="i"
+        v-for="img in displayedImages"
+        :key="img"
         class="overflow-hidden aspect-[4/3]"
       >
         <NuxtImg
           :src="img"
           alt="Theater Image"
+          width="320"
+          loading="lazy"
           class="theater-img w-full h-full object-cover object-top"
         />
       </div>
