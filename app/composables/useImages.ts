@@ -36,25 +36,25 @@ export function useShowImages(title: string, count: number): string[] {
   const slug = slugifyTitle(title);
   return Array.from(
     { length: count },
-    (_, i) => `/image/theater/shows/${slug}/image-${i + 1}.jpg`,
+    (_, i) => `theater/shows/${slug}/image-${i + 1}.jpg`,
   );
 }
 
 /**
  * Returns sequential image paths for a theater film.
- * Images live at: /image/theater/films/{slug}/image-{n}.jpg
+ * Images live at: theater/films/{slug}/image-{n}.jpg
  */
 export function useFilmImages(title: string, count: number): string[] {
   const slug = slugifyTitle(title);
   return Array.from(
     { length: count },
-    (_, i) => `/image/theater/films/${slug}/image-${i + 1}.jpg`,
+    (_, i) => `theater/films/${slug}/image-${i + 1}.jpg`,
   );
 }
 
 /**
  * Returns sequential image paths for a code project.
- * Images live at: /image/code/projects/{slug}/image-{n}.{ext}
+ * Images live at: code/projects/{slug}/image-{n}.{ext}
  */
 export function useProjectImages(
   title: string,
@@ -64,6 +64,6 @@ export function useProjectImages(
   const slug = slugifyTitle(title);
   return Array.from(
     { length: count },
-    (_, i) => `/image/code/projects/${slug}/image-${i + 1}.${ext}`,
+    (_, i) => `code/projects/${slug}/image-${i + 1}.${ext}`,
   );
 }
