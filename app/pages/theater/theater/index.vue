@@ -140,4 +140,14 @@ function openViewer(img: ShowImage) {
 .fade-stagger-leave-from {
   opacity: 1;
 }
+
+/* Viewer overlay fade */
+.viewer-enter-active,
+.viewer-leave-active {
+  transition: opacity 0.2s ease;
+}
+.viewer-enter-from,
+.viewer-leave-to {
+  opacity: 0;
+}
 </style>
