@@ -28,7 +28,7 @@ const images = computed(() =>
     <div v-if="show">
       <h1 class="uppercase">{{ show.title }}</h1>
       <div v-for="image in images" :key="image">
-        <img :src="image" alt="" />
+        <NuxtImg :src="image" alt="" />
       </div>
     </div>
   </div>

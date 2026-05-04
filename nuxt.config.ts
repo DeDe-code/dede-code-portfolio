@@ -33,10 +33,13 @@ export default defineNuxtConfig({
 
   // Configure image optimization
   image: {
-    provider:
-      process.env.NODE_ENV === "development" ? "cloudinary" : "cloudinary",
+    provider: "cloudinary",
     cloudinary: {
       baseURL: `https://res.cloudinary.com/${process.env.NUXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/`,
+      modifiers: {
+        format: "auto",
+        quality: "auto",
+      },
     },
   },
 
