@@ -104,14 +104,12 @@ function openViewer(img: ShowImage) {
       </transition-group>
     </div>
 
-    <Transition name="viewer">
-      <TheaterShowImageViewer
-        v-if="viewerOpen"
-        :images="viewerImages"
-        :start-index="viewerStartIndex"
-        @close="viewerOpen = false"
-      />
-    </Transition>
+    <TheaterShowImageViewer
+      :open="viewerOpen"
+      :images="viewerImages"
+      :start-index="viewerStartIndex"
+      @close="viewerOpen = false"
+    />
   </div>
 </template>
 
@@ -141,15 +139,5 @@ function openViewer(img: ShowImage) {
 .fade-stagger-enter-to,
 .fade-stagger-leave-from {
   opacity: 1;
-}
-
-/* Viewer overlay fade */
-.viewer-enter-active,
-.viewer-leave-active {
-  transition: opacity 0.2s ease;
-}
-.viewer-enter-from,
-.viewer-leave-to {
-  opacity: 0;
 }
 </style>
