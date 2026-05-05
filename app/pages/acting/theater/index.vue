@@ -59,6 +59,12 @@ function openViewer(img: ShowImage) {
   viewerStartIndex.value = idx < 0 ? 0 : idx;
   viewerOpen.value = true;
 }
+
+function openViewerByTitle(title: string) {
+  viewerImages.value = allImages.value.filter((i) => i.title === title);
+  viewerStartIndex.value = 0;
+  viewerOpen.value = true;
+}
 </script>
 
 <template>
@@ -66,15 +72,18 @@ function openViewer(img: ShowImage) {
     <div
       class="w-full h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] overflow-y-auto"
     >
-      <!-- mobile: back link + submenu -->
+      <!-- Mobile (< lg): back link to acting index + sub-section dropdown -->
       <div class="w-full lg:hidden">
-        <ULink
-          to="/theater"
+        <!-- <ULink
+          to="/acting"
           class="w-full flex flex-col justify-center py-spacing-100 px-spacing-200 text-gray-700 hover:bg-gray-100 inset-shadow-stone-600"
         >
           ..
-        </ULink>
-        <ContentSideDropdownMenu />
+        </ULink> -->
+        <ContentSideDropdownMenu
+          :select-mode="true"
+          @select="openViewerByTitle"
+        />
       </div>
 
       <!-- image grid -->
@@ -87,7 +96,7 @@ function openViewer(img: ShowImage) {
         <div
           v-for="img in displayedImages"
           :key="img.src"
-          class="overflow-hidden aspect-[4/3] cursor-pointer"
+          class="overflow-hidden aspect-[4/3] cursor-pointer hidden lg:block"
           @mouseenter="hoveredYear = img.year"
           @mouseleave="hoveredYear = null"
           @click="openViewer(img)"

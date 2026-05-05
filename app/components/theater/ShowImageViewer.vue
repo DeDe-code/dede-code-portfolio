@@ -110,7 +110,7 @@ onUnmounted(() => {
         >
           <!-- ── Top bar: metadata + close ──────────────────────────────────── -->
           <div
-            class="flex items-start justify-between px-spacing-300 pt-spacing-300 pb-spacing-100 overflow-hidden"
+            class="flex items-start justify-between px-spacing-300 pt-spacing-300 pb-spacing-100"
           >
             <!-- Metadata (typewriter animated) -->
             <div

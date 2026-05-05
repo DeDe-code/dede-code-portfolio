@@ -6,15 +6,18 @@ const codeItems = [
   { label: "skills", to: "/code/skills" },
   { label: "projects", to: "/code/projects" },
 ];
-const theaterItems = [
-  { label: "theater", to: "/theater/theater" },
-  { label: "films", to: "/theater/films" },
+// Acting sub-section links — used on mobile (< lg) only.
+// On lg+ the ContentSideMenu is hidden; content is shown directly in acting/index.vue.
+const actingItems = [
+  { label: "theater", to: "/acting/theater" },
+  { label: "films", to: "/acting/films" },
 ];
 const menuItems = computed(() => {
   if (route.path.startsWith("/code")) {
     return codeItems;
-  } else if (route.path.startsWith("/theater")) {
-    return theaterItems;
+  } else if (route.path.startsWith("/acting")) {
+    // Route changed from /theater to /acting
+    return actingItems;
   } else {
     return [];
   }

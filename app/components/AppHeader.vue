@@ -9,8 +9,8 @@ const links = [
     to: "/code",
   },
   {
-    label: "theater",
-    to: "/theater",
+    label: "acting",
+    to: "/acting",
   },
   {
     label: "about",
