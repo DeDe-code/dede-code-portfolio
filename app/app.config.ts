@@ -18,7 +18,7 @@ export default defineAppConfig({
     },
     contetnSideDropdownMenu: {
       slots: {
-        root: "min-h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] lg:!min-h-0 flex flex-col items-center justify-center lg:hidden",
+        root: "min-h-[calc(100vh_-_var(--min-height-app-header)_-_var(--min-height-app-footer))] lg:!min-h-0 flex flex-col items-center mt-4 lg:hidden",
         link: "w-full block p-spacing-100 pl-5 text-center lg:text-left uppercase text-gray-900 hover:text-red-500 !text-preset-3 transition-[font-size] transition-colors duration-500 ease-in-out focus:black focus:outline-none",
       },
     },

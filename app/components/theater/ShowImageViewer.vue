@@ -105,8 +105,7 @@ onUnmounted(() => {
         class="fixed inset-0 z-[9999] flex items-center justify-center"
       >
         <div
-          class="relative w-full h-full max-w-[87vw] max-h-[80vh] bg-white-50 grid overflow-hidden border-4 border-black shadow-xl"
-          style="grid-template-rows: 8rem 1fr"
+          class="relative w-full lg:h-full min-h-[80vh] max-w-[87vw] max-h-[80vh] bg-white-50 flex flex-col justify-center overflow-hidden border-4 border-black shadow-xl"
         >
           <!-- ── Top bar: metadata + close ──────────────────────────────────── -->
           <div
@@ -114,25 +113,28 @@ onUnmounted(() => {
           >
             <!-- Metadata (typewriter animated) -->
             <div
-              class="flex flex-col gap-y-1 uppercase leading-tight max-w-[70%]"
+              class="flex flex-col gap-y-1 uppercase leading-tight flex-1 min-w-0"
             >
               <span ref="elYear" class="text-preset-5 text-gray-900" />
-              <span ref="elTitle" class="text-preset-2 text-gray-900" />
+              <span
+                ref="elTitle"
+                class="text-preset-3 lg:text-preset-2 text-gray-900"
+              />
               <span ref="elRole" class="text-preset-4 text-gray-900" />
               <span ref="elDirector" class="text-preset-5 text-gray-900" />
             </div>
 
             <!-- Close button -->
             <button
-              class="border-2 border-black px-spacing-100 py-1 text-preset-5 uppercase tracking-widest shrink-0 ml-4 hover:bg-black hover:text-white-50 transition-colors"
+              class="py-1 text-preset-5 uppercase tracking-widest shrink-0 ml-4 transition-colors lg:border-2 lg:border-black lg:px-spacing-100 lg:hover:bg-black lg:hover:text-white-50"
               @click="close"
             >
-              ✕ ESC
+              ✕<span class="hidden lg:inline"> ESC</span>
             </button>
           </div>
 
           <!-- ── Body: image + numbered navigation ──────────────────────────── -->
-          <div class="flex min-h-0 items-center">
+          <div class="flex-1 flex flex-col lg:flex-row min-h-0 items-center">
             <!-- Image area -->
             <div
               class="flex-1 flex items-center justify-center h-full px-spacing-300 pb-spacing-300"
@@ -143,19 +145,19 @@ onUnmounted(() => {
                   :src="images[currentIndex]?.src"
                   :alt="images[currentIndex]?.title"
                   loading="lazy"
-                  class="max-w-full max-h-full object-contain select-none"
+                  class="max-w-full max-h-full object-cover select-none"
                 />
               </Transition>
             </div>
 
             <!-- Numbered navigation (right edge, vertically centered) -->
             <div
-              class="flex flex-col items-end justify-center gap-y-1 pr-spacing-200 pb-spacing-300 self-stretch shrink-0 w-10"
+              class="flex flex-row lg:flex-col items-center lg:items-end justify-center gap-4 lg:gap-y-1 pr-spacing-200 pb-spacing-100 pb-spacing-300 self-stretch shrink-0 w-full lg:w-10"
             >
               <button
                 v-for="(_, i) in images"
                 :key="i"
-                class="text-preset-6-mobile font-black w-full text-right text-xl uppercase transition-colors leading-tight"
+                class="text-preset-6-mobile font-black w-auto lg:w-full text-center lg:text-right text-xl uppercase transition-colors leading-tight"
                 :class="
                   i === currentIndex
                     ? 'text-gray-900'
