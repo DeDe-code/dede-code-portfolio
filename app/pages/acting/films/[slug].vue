@@ -17,9 +17,10 @@ const _images = computed(() =>
 
 <template>
   <div>
+    <!-- Mobile (< lg): back link to acting/films index -->
     <div class="lg:hidden">
       <ULink
-        to="/theater/films"
+        to="/acting/films"
         class="text-preset-2 text-gray-700 hover:bg-gray-100 px-4 py-2 rounded"
       >
         <i class="hn hn-arrow-left-solid" />

@@ -3,9 +3,18 @@ const { ui } = useAppConfig();
 const slots = ui.contetnSideDropdownMenu.slots;
 const route = useRoute();
 
+const props = defineProps<{
+  selectMode?: boolean;
+}>();
+
+const emit = defineEmits<{
+  select: [title: string];
+}>();
+
 const collectionName = computed(() => {
-  if (route.path.startsWith("/theater/films")) return "theaterFilms";
-  if (route.path.startsWith("/theater/theater")) return "theaterShows";
+  // Route prefix changed from /theater to /acting
+  if (route.path.startsWith("/acting/films")) return "theaterFilms";
+  if (route.path.startsWith("/acting/theater")) return "theaterShows";
   if (route.path.startsWith("/code/projects")) return "codeProjects";
   return null;
 });
@@ -23,8 +32,9 @@ const { data } = useAsyncData(
 
 const basePath = computed(() => {
   if (collectionName.value === "codeProjects") return "/code/projects/";
-  if (collectionName.value === "theaterShows") return "/theater/theater/";
-  if (collectionName.value === "theaterFilms") return "/theater/films/";
+  // Base paths updated from /theater/... to /acting/...
+  if (collectionName.value === "theaterShows") return "/acting/theater/";
+  if (collectionName.value === "theaterFilms") return "/acting/films/";
   return "/";
 });
 
@@ -39,15 +49,27 @@ const items = computed(
 
 <template>
   <div :class="slots.root">
-    <ULink
-      v-for="item in items"
-      :key="item.to"
-      :to="item.to"
-      :class="slots.link"
-      active-class="bg-gray-200 font-bold"
-      exact-active-class="bg-gray-200 font-bold"
-    >
-      {{ item.title }}
-    </ULink>
+    <template v-if="props.selectMode">
+      <button
+        v-for="item in items"
+        :key="item.to"
+        :class="slots.link"
+        @click="emit('select', item.title)"
+      >
+        {{ item.title }}
+      </button>
+    </template>
+    <template v-else>
+      <ULink
+        v-for="item in items"
+        :key="item.to"
+        :to="item.to"
+        :class="slots.link"
+        active-class="bg-gray-200 font-bold"
+        exact-active-class="bg-gray-200 font-bold"
+      >
+        {{ item.title }}
+      </ULink>
+    </template>
   </div>
 </template>
